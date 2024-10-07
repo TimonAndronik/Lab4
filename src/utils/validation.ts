@@ -3,15 +3,15 @@ export class Validation {
 
   private constructor() {}
   private readonly validaEmailRegExp: RegExp = new RegExp(
-    '^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$'
+    "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$",
   );
   private readonly validReleaseYearRegExp: RegExp = new RegExp(
-    '^(0|[1-9][0-9]{0,3})$'
+    "^(0|[1-9][0-9]{0,3})$",
   );
   validateCreateBookRequest(
     bookName: string,
     author: string,
-    releaseYear: number
+    releaseYear: number,
   ): boolean {
     if (!bookName) return false;
     if (!author) return false;

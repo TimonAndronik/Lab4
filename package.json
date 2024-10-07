@@ -6,11 +6,7 @@
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open",
-    "format": "prettier --write \"src/**/*.{ts,js,css,html}\"",
-    "test": "mocha --require ts-node/register --recursive test/**/*.ts",
-    "lint": "eslint 'src/**/*.{ts,js}'",
-    "prepare": "husky install",
-    "lint-staged": "lint-staged"
+    "format": "prettier --write \"src/**/*.{ts,js,css,html}\""
   },
   "repository": {
     "type": "git",
@@ -24,11 +20,8 @@
     "@typescript-eslint/eslint-plugin": "^8.6.0",
     "@typescript-eslint/parser": "^8.6.0",
     "chai": "^5.1.1",
-    "eslint": "^9.10.0",
     "globals": "^15.9.0",
-    "husky": "^8.0.0",
     "lint-staged": "^15.2.10",
-    "mocha": "^10.7.3",
     "prettier": "^3.3.3",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",

@@ -1,5 +1,5 @@
 // import { Identifiable } from '../models/identifiable';
-import { Representable } from '../models/representable';
+import { Representable } from "../models/representable";
 
 export interface Paginatable<TEntity extends Representable> {
   // eslint-disable-next-line no-unused-vars

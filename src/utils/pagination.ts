@@ -1,6 +1,6 @@
-import { Paginatable } from '../services/paginatable';
+import { Paginatable } from "../services/paginatable";
 // import { Identifiable } from '../models/identifiable';
-import { Representable } from '../models/representable';
+import { Representable } from "../models/representable";
 
 export class Pagination {
   private readonly paginationId: string;
@@ -14,7 +14,7 @@ export class Pagination {
     paginationId: string,
     listId: string,
     paginatableItems: Paginatable<Representable>,
-    itemsPerPage: number = 5
+    itemsPerPage: number = 5,
   ) {
     this.currentPage = 1;
     this.paginationId = paginationId;
@@ -50,21 +50,21 @@ export class Pagination {
 
     if (!paginationContainer) return;
     Array.from(
-      document.querySelectorAll(`.${this.paginationId}-page-number`)
+      document.querySelectorAll(`.${this.paginationId}-page-number`),
     ).forEach((el) => el.remove());
 
     for (let i = 1; i <= totalPages; i++) {
-      const pageItem = document.createElement('li');
-      pageItem.classList.add('page-item', `${this.paginationId}-page-number`);
+      const pageItem = document.createElement("li");
+      pageItem.classList.add("page-item", `${this.paginationId}-page-number`);
       if (i === this.currentPage) {
-        pageItem.classList.add('active');
+        pageItem.classList.add("active");
       }
 
-      const pageLink = document.createElement('a');
-      pageLink.classList.add('page-link');
-      pageLink.href = '#';
+      const pageLink = document.createElement("a");
+      pageLink.classList.add("page-link");
+      pageLink.href = "#";
       pageLink.textContent = i.toString();
-      pageLink.addEventListener('click', (e) => {
+      pageLink.addEventListener("click", (e) => {
         e.preventDefault();
         this.goToPage(i);
       });
@@ -73,7 +73,7 @@ export class Pagination {
       console.log(pageItem);
       paginationContainer.insertBefore(
         pageItem,
-        document.getElementById(`${this.paginationId}-next-page`)
+        document.getElementById(`${this.paginationId}-next-page`),
       );
     }
 
@@ -83,13 +83,13 @@ export class Pagination {
   initListeners(): void {
     document
       .getElementById(`${this.paginationId}-prev-page`)
-      ?.addEventListener('click', (e) => {
+      ?.addEventListener("click", (e) => {
         e.preventDefault();
         this.goToPage(this.currentPage - 1);
       });
     document
       .getElementById(`${this.paginationId}-next-page`)
-      ?.addEventListener('click', (e) => {
+      ?.addEventListener("click", (e) => {
         e.preventDefault();
         this.goToPage(this.currentPage + 1);
       });
@@ -99,29 +99,29 @@ export class Pagination {
     const totalPages = this.getTotalPages();
     document
       .getElementById(`${this.paginationId}-prev-page`)
-      ?.parentElement?.classList.toggle('disabled', this.currentPage === 1);
+      ?.parentElement?.classList.toggle("disabled", this.currentPage === 1);
     document
       .getElementById(`${this.paginationId}-next-page`)
       ?.parentElement?.classList.toggle(
-        'disabled',
-        this.currentPage === totalPages
+        "disabled",
+        this.currentPage === totalPages,
       );
   }
 
   private renderItems() {
     const list = document.getElementById(this.listId);
     if (!list) return;
-    list.innerHTML = '';
+    list.innerHTML = "";
     const items = this.paginatableItems.getPaginated(
       this.currentPage,
-      this.itemsPerPage
+      this.itemsPerPage,
     );
     for (const item of items) {
-      const li = document.createElement('li');
-      li.className = 'list-group-item d-flex justify-content-between';
+      const li = document.createElement("li");
+      li.className = "list-group-item d-flex justify-content-between";
       const text = document.createTextNode(item.represent());
-      const p = document.createElement('p');
-      p.className = 'mt-auto mb-auto';
+      const p = document.createElement("p");
+      p.className = "mt-auto mb-auto";
       p.appendChild(text);
       li.appendChild(p);
       list.appendChild(li);
@@ -133,11 +133,11 @@ export class Pagination {
 
     if (!paginationContainer) return;
     Array.from(
-      document.querySelectorAll(`.${this.paginationId}-page-number`)
+      document.querySelectorAll(`.${this.paginationId}-page-number`),
     ).forEach((el) => el.remove());
 
     const list = document.getElementById(this.listId);
     if (!list) return;
-    list.innerHTML = '';
+    list.innerHTML = "";
   }
 }

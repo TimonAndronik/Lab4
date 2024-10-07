@@ -1,8 +1,8 @@
-import { Identifiable } from '../models/identifiable';
+import { Identifiable } from "../models/identifiable";
 
 // import { IBook } from '../models/IBook';
-import { Paginatable } from './paginatable';
-import { Representable } from '../models/representable';
+import { Paginatable } from "./paginatable";
+import { Representable } from "../models/representable";
 
 export class Library<TItem extends Identifiable<TId> & Representable, TId>
   implements Paginatable<Representable>
@@ -23,7 +23,7 @@ export class Library<TItem extends Identifiable<TId> & Representable, TId>
   removeById(id: TId): void {
     const itemToDelete = this.items.filter((x) => x.id === id)[0];
     if (!itemToDelete) {
-      throw new Error('Item was not found');
+      throw new Error("Item was not found");
     }
     this.items = this.items.filter((x) => x.id !== id);
   }
