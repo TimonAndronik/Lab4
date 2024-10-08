@@ -1,5 +1,5 @@
-import { IUser } from './IUser';
-import { IBook } from './IBook';
+import { IUser } from "./IUser";
+import { IBook } from "./IBook";
 
 export class User implements IUser {
   email: string;
@@ -8,8 +8,8 @@ export class User implements IUser {
   borrowedBooks: IBook[];
 
   constructor(email?: string, username?: string) {
-    this.email = email || '';
-    this.username = username || '';
+    this.email = email || "";
+    this.username = username || "";
     this.id = new Date().getTime();
     this.borrowedBooks = [];
   }
@@ -37,7 +37,7 @@ export class User implements IUser {
   takeBookBack(bookId: number): void {
     const book = this.borrowedBooks.filter((x) => x.id === bookId)[0];
     if (!book) {
-      throw new Error('User does not have this book');
+      throw new Error("User does not have this book");
     }
 
     this.borrowedBooks = this.borrowedBooks.filter((x) => x.id !== bookId);

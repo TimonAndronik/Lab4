@@ -1,13 +1,13 @@
-import { IUser } from '../models/IUser';
-import { User } from '../models/user';
-import { Validation } from '../utils/validation';
-import { Storage } from './storage';
-import { Paginatable } from './paginatable';
-import { Book } from '../models/book';
-import { IBook } from '../models/IBook';
+import { IUser } from "../models/IUser";
+import { User } from "../models/user";
+import { Validation } from "../utils/validation";
+import { Storage } from "./storage";
+import { Paginatable } from "./paginatable";
+import { Book } from "../models/book";
+import { IBook } from "../models/IBook";
 
 export class UserService implements Paginatable<IUser> {
-  private readonly usersKey = 'library-users';
+  private readonly usersKey = "library-users";
   private readonly storage: Storage;
   private users: Array<IUser>;
   private readonly validation: Validation;
@@ -20,7 +20,7 @@ export class UserService implements Paginatable<IUser> {
 
   add(username: string, email: string): void {
     if (!this.validation.validateCreateUserRequest(username, email)) {
-      throw new Error('Invalid data for user');
+      throw new Error("Invalid data for user");
     }
 
     const user = new User(email, username);

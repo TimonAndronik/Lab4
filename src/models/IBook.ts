@@ -1,5 +1,5 @@
-import { Identifiable } from './identifiable';
-import { Representable } from './representable';
+import { Identifiable } from "./identifiable";
+import { Representable } from "./representable";
 
 export interface IBook extends Identifiable<number>, Representable {
   bookName: string;

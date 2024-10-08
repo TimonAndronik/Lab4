@@ -1,18 +1,18 @@
-import { Validation } from '../utils/validation';
-import { Storage } from './storage';
-import { Library } from './library';
-import { IBook } from '../models/IBook';
-import { Book } from '../models/book';
-import { Paginatable } from './paginatable';
-import { Representable } from '../models/representable';
-import { UserService } from './user-service';
+import { Validation } from "../utils/validation";
+import { Storage } from "./storage";
+import { Library } from "./library";
+import { IBook } from "../models/IBook";
+import { Book } from "../models/book";
+import { Paginatable } from "./paginatable";
+import { Representable } from "../models/representable";
+import { UserService } from "./user-service";
 
 export class LibraryService implements Paginatable<Representable> {
   private readonly userService: UserService;
   private readonly validation: Validation;
   private readonly storageService: Storage;
   private readonly library: Library<IBook, number>;
-  private readonly booksKey: string = 'libraryBooks';
+  private readonly booksKey: string = "libraryBooks";
   private readonly allBooks: IBook[];
   private queriedBooks: IBook[];
   constructor(userService: UserService) {
@@ -29,7 +29,7 @@ export class LibraryService implements Paginatable<Representable> {
     if (
       !this.validation.validateCreateBookRequest(bookName, author, releaseYear)
     ) {
-      throw new Error('Invalid data for book');
+      throw new Error("Invalid data for book");
     }
 
     const book: Book = new Book(author, bookName, releaseYear);
@@ -52,7 +52,7 @@ export class LibraryService implements Paginatable<Representable> {
     const start = (pageNumber - 1) * pageSize;
     const end = start + pageSize;
     const books = this.queriedBooks.slice(start, end);
-    console.log('Queried books:');
+    console.log("Queried books:");
     console.log(books);
     return books;
     // return this.library.getPaginated(pageNumber, pageSize);
@@ -64,21 +64,21 @@ export class LibraryService implements Paginatable<Representable> {
 
   borrowBook(userId: number, bookId: number) {
     const user = this.userService.getById(userId);
-    console.log('user found');
+    console.log("user found");
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
-    console.log('Borrowed count:');
+    console.log("Borrowed count:");
     console.log(user.borrowedBooks.length);
     if (user.borrowedBooks.length >= 3) {
-      throw new Error('User already has 3 books');
+      throw new Error("User already has 3 books");
     }
 
     const book = this.library.find(bookId);
-    console.log('book found');
+    console.log("book found");
     if (!book || book.borrowed) {
-      throw new Error('Book not found or it was already taken by someone');
+      throw new Error("Book not found or it was already taken by someone");
     }
 
     book.borrowed = true;
@@ -90,34 +90,34 @@ export class LibraryService implements Paginatable<Representable> {
   returnBook(userId: number, bookId: number) {
     const user = this.userService.getById(userId);
     if (!user) {
-      throw new Error('User not found');
+      throw new Error("User not found");
     }
 
     const book = this.library.find(bookId);
     if (!book) {
-      throw new Error('Book not found or it was already taken by someone');
+      throw new Error("Book not found or it was already taken by someone");
     }
 
     user.takeBookBack(bookId);
-    book.borrowedBy = '';
+    book.borrowedBy = "";
     book.borrowed = false;
     this.storageService.save(this.booksKey, this.library.getAll());
   }
 
   searchBook(searchQuery: string, searchOption: string): void {
-    if (searchQuery === '') {
+    if (searchQuery === "") {
       this.queriedBooks = this.allBooks;
       return;
     }
     switch (searchOption) {
-      case 'name':
+      case "name":
         this.queriedBooks = this.allBooks.filter((x) =>
-          x.bookName.includes(searchQuery)
+          x.bookName.includes(searchQuery),
         );
         break;
-      case 'author':
+      case "author":
         this.queriedBooks = this.allBooks.filter((x) =>
-          x.author.includes(searchQuery)
+          x.author.includes(searchQuery),
         );
         break;
       default:

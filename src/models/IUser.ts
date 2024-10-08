@@ -1,6 +1,6 @@
-import { Identifiable } from './identifiable';
-import { Representable } from './representable';
-import { IBook } from './IBook';
+import { Identifiable } from "./identifiable";
+import { Representable } from "./representable";
+import { IBook } from "./IBook";
 
 export interface IUser extends Identifiable<number>, Representable {
   borrowedBooks: IBook[];
